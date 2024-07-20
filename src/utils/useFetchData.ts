@@ -20,8 +20,7 @@ export const useFetchData = (url: string, delay: number) => {
         throw new Error('Network response was not ok');
       }
       const json = await response.json();
-      console.log(json.books);
-      
+
       setData(json.books);
     } catch (error: any) {
       setError(error)
