@@ -1,9 +1,8 @@
 "use client";
 
-import { Grid, Group, SimpleGrid, Skeleton } from "@mantine/core";
+import { Grid, Group, Pagination, SimpleGrid, Skeleton } from "@mantine/core";
 import Card from "@/components/common/Card";
 import { useFetchData } from "@/utils/useFetchData";
-import Pagination from "@/components/common/Pagination";
 import { useState } from "react";
 import { useChunk } from "@/utils/useChunk";
 
@@ -27,9 +26,11 @@ export default function Home() {
             </SimpleGrid>
             <Group justify="flex-end">
               <Pagination
-                books={data}
-                activePage={activePage}
-                setPage={setPage}
+                total={data.length}
+                siblings={2}
+                value={activePage}
+                onChange={setPage}
+                mt="sm"
               />
             </Group>
           </Grid.Col>
