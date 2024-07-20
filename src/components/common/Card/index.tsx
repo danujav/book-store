@@ -1,29 +1,29 @@
 'use client'
+import Book from "@/utils/types/Book";
 import { Card as MagniteCard, Image, Text, Badge, Button, Group } from "@mantine/core";
 
-export default function Card() {
+export default function Card({data}: { data: Book }) {
   return (
-    <MagniteCard shadow="sm" padding="lg" radius="md" withBorder>
+    <MagniteCard shadow="sm" padding="lg" radius="md" withBorder className="hover:shadow-xl hover:bg-slate-100" key={data.id} >
       <MagniteCard.Section>
         <Image
-          src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png"
+          src={data.image}
           height={160}
-          alt="Norway"
+          alt={"No image preview"}
         />
       </MagniteCard.Section>
 
       <Group justify="space-between" mt="md" mb="xs">
-        <Text fw={500}>Norway Fjord Adventures</Text>
-        <Badge color="pink">On Sale</Badge>
+        <Text fw={500}>{data.title}</Text>
+        <Badge color="pink">{data.price}</Badge>
       </Group>
 
       <Text size="sm" c="dimmed">
-        With Fjord Tours you can explore more of the magical fjord landscapes
-        with tours and activities on and around the fjords of Norway
+        {data.subtitle}
       </Text>
 
       <Button color="blue" fullWidth mt="md" radius="md">
-        Book classic tour now
+        Add to cart
       </Button>
     </MagniteCard>
   );
