@@ -12,7 +12,10 @@ import {
   SimpleGrid,
   ScrollArea,
   Divider,
+  RangeSlider as MantineRangeSlider,
+  NumberFormatter,
 } from "@mantine/core";
+import { useState } from "react";
 
 export default function SideNav({ data }: { data: Book[] }) {
   return (
@@ -42,10 +45,20 @@ export default function SideNav({ data }: { data: Book[] }) {
         </Grid.Col>
       </Grid>
 
-      <Button>Button 2</Button>
+      <Divider my="sm" />
 
-      <Button variant="default">2</Button>
-      <Button variant="default">3</Button>
+      <Grid>
+        <Grid.Col span={12}>
+          <Group justify="center">
+            <Text fw={500}>Price</Text>
+          </Group>
+        </Grid.Col>
+        <Grid.Col span={12}>
+          <Slider />
+        </Grid.Col>
+      </Grid>
+
+      <Divider my="sm" />
     </Stack>
   );
 }
@@ -63,5 +76,23 @@ function CheckBox({ data }: { data: Book[] }) {
         ))}
       </SimpleGrid>
     </Checkbox.Group>
+  );
+}
+
+function Slider() {
+  const [value, setValue] = useState<[number, number]>([20, 100]);
+
+  return (
+    <>
+      <MantineRangeSlider value={value} onChange={setValue} />
+      <Text mt={5} size="sm">
+        <Text mt="md" size="sm">
+          Price between:{" "}
+          <b>
+            $ {value[0]} - $ {value[1]}
+          </b>
+        </Text>
+      </Text>
+    </>
   );
 }

@@ -1,6 +1,13 @@
 "use client";
 
-import { Grid, Group, Pagination, SimpleGrid, Skeleton, Text } from "@mantine/core";
+import {
+  Grid,
+  Group,
+  Pagination,
+  SimpleGrid,
+  Skeleton,
+  Text,
+} from "@mantine/core";
 import Card from "@/components/common/Card";
 import { useFetchData } from "@/utils/useFetchData";
 import { useEffect, useState } from "react";
@@ -28,17 +35,17 @@ export default function Home() {
       <Skeleton visible={loading} height={450}>
         <Grid>
           <Grid.Col span={3}>
-          <SideNav data={data} />
+            <SideNav data={data} />
           </Grid.Col>
           <Grid.Col span={9}>
             <Group justify="flex-end" className="mb-5">
-            <Text fw={500}>Sort By: </Text>
-            <Combobox 
-              placeholder="Pick a sorting value"
-              data={["Titile", "Author"]}
-              value={value}
-              onChange={handleChange}
-            />
+              <Text fw={500}>Sort By: </Text>
+              <Combobox
+                placeholder="Pick a sorting value"
+                data={["Titile", "Author"]}
+                value={value}
+                onChange={handleChange}
+              />
             </Group>
             <SimpleGrid cols={4} spacing="xs">
               {items}
