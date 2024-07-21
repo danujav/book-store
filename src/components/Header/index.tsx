@@ -1,30 +1,9 @@
 "use client";
 
-import {
-  Autocomplete,
-  Group,
-  Burger,
-  rem,
-  Image,
-  ActionIcon,
-  Flex,
-  Badge,
-  Grid,
-  TextInput,
-} from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
-import classes from "./Header.module.css";
-import {
-  IconShoppingCart,
-  IconHome2,
-  IconAdjustments,
-  IconSearch,
-} from "@tabler/icons-react";
+import { rem, Badge, TextInput } from "@mantine/core";
+import { IconShoppingCart, IconHome2, IconSearch } from "@tabler/icons-react";
 import { NavLink } from "@mantine/core";
-import BookShopLogo from "../../../public/BookShopLogo.png";
-import NextImage from "next/image";
 import Link from "next/link";
-import { MantineLogo } from "@mantinex/mantine-logo";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { useCartStore } from "@/store/store";
@@ -37,12 +16,10 @@ export default function Header() {
   return (
     <header className="bg-white text-gray-900 p-4 shadow-md">
       <div className="container mx-auto flex justify-between items-center">
-        {/* Left Section - Icon */}
         <div className="text-2xl text-teal-700 font-bold">
           <i className="fa-solid fa-book"></i>
         </div>
 
-        {/* Middle Section - Navigation Links */}
         <div className="hidden md:flex space-x-4">
           <NavLink
             component={Link}
@@ -80,7 +57,6 @@ export default function Header() {
           />
         </div>
 
-        {/* Mobile Menu Button (if needed) */}
         {/* <div className="md:hidden">
           <button
             className="text-teal-700 hover:text-teal-500 focus:outline-none"
