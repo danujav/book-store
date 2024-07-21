@@ -11,7 +11,7 @@ import {
 } from "@mantine/core";
 
 export default function Card({ data }: { data: Book }) {
-  const { addToCart, removeFromCart } = useCartStore();
+  const { cartProductIds, addToCart, removeFromCart } = useCartStore();
 
   return (
     <MagniteCard
@@ -34,15 +34,19 @@ export default function Card({ data }: { data: Book }) {
       <Text size="sm" c="dimmed">
         {data.subtitle}
       </Text>
-
+      {/* {!cartProductIds.includes(data.id) && } */}
       <Button
-        color="blue"
+        color={`${!cartProductIds.includes(data.id) ? "blue" : "red"}`}
         fullWidth
         mt="md"
         radius="md"
-        onClick={() => addToCart(data.id)}
+        onClick={() => {
+          !cartProductIds.includes(data.id)
+            ? addToCart(data.id)
+            : removeFromCart(data.id);
+        }}
       >
-        Add to cart
+        {!cartProductIds.includes(data.id) ? "Add to cart" : "Remove from cart"}
       </Button>
     </MagniteCard>
   );

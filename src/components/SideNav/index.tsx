@@ -39,7 +39,7 @@ export default function SideNav({ data }: { data: Book[] }) {
           </Group>
         </Grid.Col>
         <Grid.Col span={12}>
-          <ScrollArea h={250} type="auto" scrollbarSize={8}>
+          <ScrollArea h={250} type="never" scrollbarSize={8}>
             <CheckBox data={data} />
           </ScrollArea>
         </Grid.Col>
@@ -69,7 +69,7 @@ function CheckBox({ data }: { data: Book[] }) {
   const uniqueCategories = Array.from(
     new Set(data.map((book) => book.category))
   );
-  
+
   return (
     <Checkbox.Group value={value} onChange={setValue} withAsterisk>
       <SimpleGrid cols={2}>
@@ -87,12 +87,12 @@ function Slider() {
   return (
     <>
       <MantineRangeSlider value={value} onChange={setValue} />
-        <Text mt="md" size="sm">
-          Price between:{" "}
-          <b>
-            $ {value[0]} - $ {value[1]}
-          </b>
-        </Text>
+      <Text mt="md" size="sm">
+        Price between:{" "}
+        <b>
+          $ {value[0]} - $ {value[1]}
+        </b>
+      </Text>
     </>
   );
 }
