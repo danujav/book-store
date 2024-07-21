@@ -1,20 +1,26 @@
 "use client";
 
-import { Grid, Group, Pagination, SimpleGrid, Skeleton } from "@mantine/core";
+import { Grid, Group, Pagination, SimpleGrid, Skeleton, Text } from "@mantine/core";
 import Card from "@/components/common/Card";
 import { useFetchData } from "@/utils/useFetchData";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useChunk } from "@/utils/useChunk";
 import Book from "@/utils/types/Book";
+import Combobox from "@/components/common/Combobox";
 
 export default function Home() {
   const { data, loading, error } = useFetchData("/data/bookList.json", 2000);
+  const [value, setValue] = useState<string | null>("");
 
   const [activePage, setPage] = useState(1);
   const chunkArray = useChunk(data, 8);
   const items = chunkArray[activePage - 1]?.map((item: Book) => (
     <Card data={item} />
   ));
+
+  const handleChange = (value: string | null) => {
+    setValue(value);
+  };
 
   return (
     <div className="m-11">
@@ -24,12 +30,21 @@ export default function Home() {
             1
           </Grid.Col>
           <Grid.Col span={9}>
+            <Group justify="flex-end" className="mb-5">
+            <Text fw={500}>Sort By: </Text>
+            <Combobox 
+              placeholder="Pick a sorting value"
+              data={["Titile", "Author"]}
+              value={value}
+              onChange={handleChange}
+            />
+            </Group>
             <SimpleGrid cols={4} spacing="xs">
               {items}
             </SimpleGrid>
             <Group justify="flex-end">
               <Pagination
-                total={data.length/2}
+                total={data.length / 2}
                 siblings={2}
                 value={activePage}
                 onChange={setPage}
