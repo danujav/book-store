@@ -27,11 +27,12 @@ import Link from "next/link";
 import { MantineLogo } from "@mantinex/mantine-logo";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { useCartStore } from "@/store/store";
 
 export default function Header() {
   const [searchValue, setSearchValue] = useState("");
-  const pathname = usePathname()
-
+  const pathname = usePathname();
+  const { cartProductIds } = useCartStore();
 
   return (
     <header className="bg-white text-gray-900 p-4 shadow-md">
@@ -49,8 +50,7 @@ export default function Header() {
             label="Home"
             leftSection={<IconHome2 size="1rem" stroke={1.5} />}
             variant="filled"
-            active={pathname == '/'}
-
+            active={pathname == "/"}
           />
           <NavLink
             component={Link}
@@ -59,18 +59,20 @@ export default function Header() {
             leftSection={<IconShoppingCart size="1rem" stroke={1.5} />}
             rightSection={
               <Badge size="xs" color="red" circle>
-                3
+                {cartProductIds.length}
               </Badge>
             }
             variant="filled"
-            active={pathname == '/cart'}
+            active={pathname == "/cart"}
           />
         </div>
 
         <div className="hidden md:flex space-x-4">
           <TextInput
             leftSectionPointerEvents="none"
-            leftSection={<IconSearch style={{ width: rem(16), height: rem(16) }} />}
+            leftSection={
+              <IconSearch style={{ width: rem(16), height: rem(16) }} />
+            }
             placeholder="Search book by authr or title"
             value={searchValue}
             onChange={(event) => setSearchValue(event.currentTarget.value)}
