@@ -9,9 +9,9 @@ import {
   Text,
 } from "@mantine/core";
 import Card from "@/components/common/Card";
-import { useFetchData } from "@/utils/useFetchData";
+import { useFetchData } from "@/utils/hooks/useFetchData";
 import { useEffect, useState } from "react";
-import { useChunk } from "@/utils/useChunk";
+import { useChunk } from "@/utils/hooks/useChunk";
 import Book from "@/utils/types/Book";
 import Combobox from "@/components/common/Combobox";
 import SideNav from "@/components/SideNav";

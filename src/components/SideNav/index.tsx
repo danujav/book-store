@@ -15,7 +15,7 @@ import {
   RangeSlider as MantineRangeSlider,
   NumberFormatter,
 } from "@mantine/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function SideNav({ data }: { data: Book[] }) {
   return (
@@ -64,12 +64,18 @@ export default function SideNav({ data }: { data: Book[] }) {
 }
 
 function CheckBox({ data }: { data: Book[] }) {
+  const [value, setValue] = useState<string[]>([]);
+
   const uniqueCategories = Array.from(
     new Set(data.map((book) => book.category))
   );
 
+  useEffect(() => {
+    console.log(value);
+  }, [value]);
+
   return (
-    <Checkbox.Group withAsterisk>
+    <Checkbox.Group value={value} onChange={setValue} withAsterisk>
       <SimpleGrid cols={2}>
         {uniqueCategories.map((category, index) => (
           <Checkbox key={index} value={category} label={category} />
