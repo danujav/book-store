@@ -1,16 +1,29 @@
-'use client'
+"use client";
+import { useCartStore } from "@/store/store";
 import Book from "@/utils/types/Book";
-import { Card as MagniteCard, Image, Text, Badge, Button, Group } from "@mantine/core";
+import {
+  Card as MagniteCard,
+  Image,
+  Text,
+  Badge,
+  Button,
+  Group,
+} from "@mantine/core";
 
-export default function Card({data}: { data: Book }) {
+export default function Card({ data }: { data: Book }) {
+  const { addToCart, removeFromCart } = useCartStore();
+
   return (
-    <MagniteCard shadow="sm" padding="lg" radius="md" withBorder className="hover:shadow-xl hover:bg-slate-100" key={data.id} >
+    <MagniteCard
+      shadow="sm"
+      padding="lg"
+      radius="md"
+      withBorder
+      className="hover:shadow-xl hover:bg-slate-100"
+      key={data.id}
+    >
       <MagniteCard.Section>
-        <Image
-          src={data.image}
-          height={160}
-          alt={"No image preview"}
-        />
+        <Image src={data.image} height={160} alt={"No image preview"} />
       </MagniteCard.Section>
 
       <Group justify="space-between" mt="md" mb="xs">
@@ -22,7 +35,13 @@ export default function Card({data}: { data: Book }) {
         {data.subtitle}
       </Text>
 
-      <Button color="blue" fullWidth mt="md" radius="md">
+      <Button
+        color="blue"
+        fullWidth
+        mt="md"
+        radius="md"
+        onClick={() => addToCart(data.id)}
+      >
         Add to cart
       </Button>
     </MagniteCard>

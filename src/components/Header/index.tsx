@@ -58,7 +58,7 @@ export default function Header() {
             label="Cart"
             leftSection={<IconShoppingCart size="1rem" stroke={1.5} />}
             rightSection={
-              <Badge size="xs" color="red" circle>
+              <Badge size="lg" color="red" circle>
                 {cartProductIds.length}
               </Badge>
             }
