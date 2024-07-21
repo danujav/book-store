@@ -5,7 +5,7 @@ import { IconShoppingCart, IconHome2, IconSearch } from "@tabler/icons-react";
 import { NavLink, Drawer } from "@mantine/core";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useCartStore } from "@/store/userCartStore";
 import { useDisclosure } from "@mantine/hooks";
 
@@ -110,13 +110,17 @@ export default function Header() {
 
 function DrawerContent() {
   const { cartProducts } = useCartStore();
-  const total = 245;
+
+  const tot = useMemo(() => {
+    return cartProducts.reduce((sum, product) => sum + 10, 0);
+  }, [cartProducts]);
+
   return (
     <>
-      {cartProducts.map((id, index) => (
-        <Group justify="space-between">
+      {cartProducts.map((product, index) => (
+        <Group justify="space-between" key={index}>
           <Button variant="default">First</Button>
-          <Text fw={350}>{total}</Text>
+          <Text fw={350}>{tot}</Text>
         </Group>
       ))}
     </>
