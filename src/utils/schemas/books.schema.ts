@@ -58,3 +58,8 @@ export const BookSchema = z.object({
             invalid_type_error: "Category must be a number",
         }),
 });
+
+export const BooksSchema = z.array(BookSchema);
+
+export type Book = z.infer<typeof BookSchema>;
+export type Books = z.infer<typeof BooksSchema>;
