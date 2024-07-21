@@ -1,17 +1,20 @@
 "use client";
 
-import { rem, Badge, TextInput } from "@mantine/core";
+import { rem, Badge, TextInput, Button, Group, Text } from "@mantine/core";
 import { IconShoppingCart, IconHome2, IconSearch } from "@tabler/icons-react";
-import { NavLink } from "@mantine/core";
+import { NavLink, Drawer } from "@mantine/core";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { useCartStore } from "@/store/store";
+import { useCartStore } from "@/store/userCartStore";
+import { useDisclosure } from "@mantine/hooks";
 
 export default function Header() {
   const [searchValue, setSearchValue] = useState("");
   const pathname = usePathname();
-  const { cartProductIds } = useCartStore();
+  const [opened, { open, close }] = useDisclosure(false);
+
+  const { cartProducts } = useCartStore();
 
   return (
     <header className="bg-white text-gray-900 p-4 shadow-md">
@@ -29,7 +32,29 @@ export default function Header() {
             variant="filled"
             active={pathname == "/"}
           />
-          <NavLink
+          <Button
+            variant="light"
+            leftSection={<IconShoppingCart size={14} />}
+            rightSection={
+              <Badge size="lg" color="red" circle>
+                {cartProducts.length}
+              </Badge>
+            }
+            onClick={open}
+          >
+            Cart
+          </Button>
+          <Drawer
+            offset={8}
+            radius="md"
+            opened={opened}
+            onClose={close}
+            title="Added to your cart"
+            position="right"
+          >
+            <DrawerContent />
+          </Drawer>
+          {/* <NavLink
             component={Link}
             href="cart"
             label="Cart"
@@ -41,7 +66,7 @@ export default function Header() {
             }
             variant="filled"
             active={pathname == "/cart"}
-          />
+          /> */}
         </div>
 
         <div className="hidden md:flex space-x-4">
@@ -80,5 +105,20 @@ export default function Header() {
         </div> */}
       </div>
     </header>
+  );
+}
+
+function DrawerContent() {
+  const { cartProducts } = useCartStore();
+  const total = 245;
+  return (
+    <>
+      {cartProducts.map((id, index) => (
+        <Group justify="space-between">
+          <Button variant="default">First</Button>
+          <Text fw={350}>{total}</Text>
+        </Group>
+      ))}
+    </>
   );
 }
