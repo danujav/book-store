@@ -69,11 +69,7 @@ function CheckBox({ data }: { data: Book[] }) {
   const uniqueCategories = Array.from(
     new Set(data.map((book) => book.category))
   );
-
-  useEffect(() => {
-    console.log(value);
-  }, [value]);
-
+  
   return (
     <Checkbox.Group value={value} onChange={setValue} withAsterisk>
       <SimpleGrid cols={2}>
@@ -91,14 +87,12 @@ function Slider() {
   return (
     <>
       <MantineRangeSlider value={value} onChange={setValue} />
-      <Text mt={5} size="sm">
         <Text mt="md" size="sm">
           Price between:{" "}
           <b>
             $ {value[0]} - $ {value[1]}
           </b>
         </Text>
-      </Text>
     </>
   );
 }

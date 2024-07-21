@@ -24,7 +24,7 @@ export default function Home() {
   const [activePage, setPage] = useState(1);
   const chunkArray = useChunk(data, 8);
   const items = chunkArray[activePage - 1]?.map((item: Book) => (
-    <Card data={item} />
+    <Card key={item.id} data={item} />
   ));
 
   const handleChange = (value: string | null) => {

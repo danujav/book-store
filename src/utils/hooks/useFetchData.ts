@@ -8,7 +8,7 @@ export const useFetchData = <T>(url: string, delay: number, schema: ZodSchema<T[
 
   useEffect(() => {
     fetchData();
-  }, [url, delay, schema]);
+  }, [url]);
 
 
   const fetchData = async () => {
