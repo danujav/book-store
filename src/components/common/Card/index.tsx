@@ -38,7 +38,7 @@ export default function Card({ data }: { data: Book }) {
         color={`${!isInCart ? "blue" : "red"}`}
         fullWidth
         mt="md"
-        radius="md"
+        radius="xs"
         onClick={() => {
           !isInCart ? addToCart(data) : removeFromCart(data.id);
         }}
