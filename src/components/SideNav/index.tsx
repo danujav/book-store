@@ -1,4 +1,5 @@
 import { useCategoryStore } from "@/store/useCategoryStore";
+import { usePriceStore } from "@/store/usePriceStore";
 import { Books } from "@/utils/schemas/books.schema";
 import {
   Stack,
@@ -25,9 +26,6 @@ export default function SideNav({ data }: { data: Books }) {
       <Group className="pl-3 mt-6">
         <Text fw={500}>Filter By: </Text>
       </Group>
-
-      {/* <Divider size={10} my="xl" label="Filter By: " labelPosition="left" /> */}
-      {/* <Text fw={500}>Filter By: </Text> */}
 
       <Grid>
         <Grid.Col span={12}>
@@ -86,7 +84,13 @@ function CheckBox({ data }: { data: Books }) {
 }
 
 function Slider() {
-  const [value, setValue] = useState<[number, number]>([20, 100]);
+  const [value, setValue] = useState<[number, number]>([0, 100]);
+
+  const { startingPrice, endingPrice, updatePrices } = usePriceStore();
+
+  useEffect(() => {
+    updatePrices(value[0], value[1]);
+  }, [value]);
 
   return (
     <>
@@ -94,7 +98,7 @@ function Slider() {
       <Text mt="md" size="sm">
         Price between:{" "}
         <b>
-          $ {value[0]} - $ {value[1]}
+          $ {startingPrice} - $ {endingPrice}
         </b>
       </Text>
     </>

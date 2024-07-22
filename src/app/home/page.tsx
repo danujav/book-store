@@ -17,6 +17,7 @@ import SideNav from "@/components/SideNav";
 import { Book, BooksSchema } from "@/utils/schemas/books.schema";
 import { useSearchStore } from "@/store/useSearchStore";
 import { useCategoryStore } from "@/store/useCategoryStore";
+import { usePriceStore } from "@/store/usePriceStore";
 
 export default function Home() {
   const { data, loading, error } = useFetchData(
@@ -26,6 +27,7 @@ export default function Home() {
   );
   const { searchValue } = useSearchStore();
   const { categories } = useCategoryStore();
+  const { startingPrice, endingPrice } = usePriceStore();
 
   const [value, setValue] = useState<string | null>("");
   const [filteredData, setFilteredData] = useState<Book[]>([]);
@@ -43,6 +45,9 @@ export default function Home() {
           book.author.toLowerCase().includes(searchValue.toLowerCase()) ||
           book.title.toLowerCase().includes(searchValue.toLowerCase())
       )
+      .filter((book) => {
+        return book.price >= startingPrice && book.price <= endingPrice;
+      })
       .sort((book1: Book, book2: Book) => {
         if (value === "Title") {
           return book1.title.localeCompare(book2.title);
@@ -59,8 +64,10 @@ export default function Home() {
       );
     }
 
+    // filteredData = filteredData.;
+
     setFilteredData(filteredData);
-  }, [data, searchValue, value, categories]);
+  }, [data, searchValue, value, categories, startingPrice, endingPrice]);
 
   const handleChange = (value: string | null) => {
     setValue(value);
