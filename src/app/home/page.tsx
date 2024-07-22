@@ -35,13 +35,23 @@ export default function Home() {
   ));
 
   useEffect(() => {
-    const filteredData = data.filter(
-      (book: Book) =>
-        book.author.toLowerCase().includes(searchValue.toLowerCase()) ||
-        book.title.toLowerCase().includes(searchValue.toLowerCase())
-    );
+    const filteredData = data
+      .filter(
+        (book: Book) =>
+          book.author.toLowerCase().includes(searchValue.toLowerCase()) ||
+          book.title.toLowerCase().includes(searchValue.toLowerCase())
+      )
+      .sort((book1: Book, book2: Book) => {
+        if (value === "Title") {
+          return book1.title.localeCompare(book2.title);
+        } else if (value === "Author") {
+          return book1.author.localeCompare(book2.author);
+        } else {
+          return 0;
+        }
+      });
     setFilteredData(filteredData);
-  }, [data, searchValue]);
+  }, [data, searchValue, value]);
 
   const handleChange = (value: string | null) => {
     setValue(value);
@@ -59,7 +69,7 @@ export default function Home() {
               <Text fw={500}>Sort By: </Text>
               <Combobox
                 placeholder="Pick a sorting value"
-                data={["Titile", "Author"]}
+                data={["Title", "Author"]}
                 value={value}
                 onChange={handleChange}
               />
