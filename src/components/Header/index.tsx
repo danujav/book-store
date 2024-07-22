@@ -19,6 +19,7 @@ import { usePathname } from "next/navigation";
 import { useMemo, useState } from "react";
 import { useCartStore } from "@/store/userCartStore";
 import { useDisclosure } from "@mantine/hooks";
+import path from "node:path/win32";
 
 export default function Header() {
   const [searchValue, setSearchValue] = useState("");
@@ -56,6 +57,7 @@ export default function Header() {
               </Badge>
             }
             onClick={open}
+            disabled={pathname == "/cart"}
           >
             Cart
           </Button>
@@ -84,32 +86,20 @@ export default function Header() {
             </Grid>
             <Grid>
               <Grid.Col span={12}>
-                <Button fullWidth variant="filled" size="md" radius="xs">
-                  <NavLink
-                    component={Link}
-                    href="/cart"
-                    label="View Your Cart"
-                    // leftSection={<IconHome2 size="1rem" stroke={1.5} />}
-                    // variant="filled"
-                    // active={pathname == "/"}
-                  />
-                </Button>
+                <Link href="/cart">
+                  <Button
+                    fullWidth
+                    variant="filled"
+                    size="md"
+                    radius="xs"
+                    onClick={close}
+                  >
+                    View Your Cart
+                  </Button>
+                </Link>
               </Grid.Col>
             </Grid>
           </Drawer>
-          {/* <NavLink
-            component={Link}
-            href="cart"
-            label="Cart"
-            leftSection={<IconShoppingCart size="1rem" stroke={1.5} />}
-            rightSection={
-              <Badge size="lg" color="red" circle>
-                {cartProductIds.length}
-              </Badge>
-            }
-            variant="filled"
-            active={pathname == "/cart"}
-          /> */}
         </div>
 
         <div className="hidden md:flex space-x-4">
