@@ -15,6 +15,7 @@ import { useChunk } from "@/utils/hooks/useChunk";
 import Combobox from "@/components/common/Combobox";
 import SideNav from "@/components/SideNav";
 import { Book, BooksSchema } from "@/utils/schemas/books.schema";
+import { useSearchStore } from "@/store/useSearchStore";
 
 export default function Home() {
   const { data, loading, error } = useFetchData(
@@ -22,13 +23,25 @@ export default function Home() {
     2000,
     BooksSchema
   );
+  const { searchValue } = useSearchStore();
+
   const [value, setValue] = useState<string | null>("");
+  const [filteredData, setFilteredData] = useState<Book[]>([]);
 
   const [activePage, setPage] = useState(1);
-  const chunkArray = useChunk(data, 8);
+  const chunkArray = useChunk(filteredData, 8);
   const items = chunkArray[activePage - 1]?.map((item: Book) => (
     <Card key={item.id} data={item} />
   ));
+
+  useEffect(() => {
+    const filteredData = data.filter(
+      (book: Book) =>
+        book.author.toLowerCase().includes(searchValue.toLowerCase()) ||
+        book.title.toLowerCase().includes(searchValue.toLowerCase())
+    );
+    setFilteredData(filteredData);
+  }, [data, searchValue]);
 
   const handleChange = (value: string | null) => {
     setValue(value);
@@ -56,7 +69,7 @@ export default function Home() {
             </SimpleGrid>
             <Group justify="flex-end">
               <Pagination
-                total={data.length / 2}
+                total={Math.ceil(filteredData.length / 8)}
                 siblings={2}
                 value={activePage}
                 onChange={setPage}

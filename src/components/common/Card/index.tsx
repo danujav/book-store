@@ -29,7 +29,12 @@ export default function Card({ data }: { data: Book }) {
       </MagniteCard.Section>
       <Group justify="space-between" mt="md" mb="xs">
         <Text fw={500}>{data.title}</Text>
-        <Badge color="pink">{data.price}</Badge>
+        <Text size="sm" fw={400}>
+          Author: {data.author}
+        </Text>
+        <Badge size="lg" color="pink">
+          $ {data.price}
+        </Badge>
       </Group>
       <Text size="sm" c="dimmed">
         {data.subtitle}

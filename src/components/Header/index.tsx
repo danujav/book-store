@@ -20,17 +20,14 @@ import { useEffect, useMemo, useState } from "react";
 import { useCartStore } from "@/store/userCartStore";
 import { useDisclosure } from "@mantine/hooks";
 import path from "node:path/win32";
+import { useSearchStore } from "@/store/useSearchStore";
 
 export default function Header() {
-  const [searchValue, setSearchValue] = useState("");
   const pathname = usePathname();
   const [opened, { open, close }] = useDisclosure(false);
 
   const { cartProducts } = useCartStore();
-
-  useEffect(() => {
-    console.log(searchValue);
-  }, [searchValue]);
+  const { searchValue, updateSearchValue } = useSearchStore();
 
   const tot = useMemo(() => {
     return cartProducts.reduce((sum, product) => sum + product.price, 0);
@@ -114,7 +111,7 @@ export default function Header() {
             }
             placeholder="Search book by authr or title"
             value={searchValue}
-            onChange={(event) => setSearchValue(event.currentTarget.value)}
+            onChange={(event) => updateSearchValue(event.currentTarget.value)}
             // w={300}
           />
         </div>
