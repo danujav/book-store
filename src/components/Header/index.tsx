@@ -16,7 +16,7 @@ import { IconShoppingCart, IconHome2, IconSearch } from "@tabler/icons-react";
 import { NavLink, Drawer } from "@mantine/core";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useCartStore } from "@/store/userCartStore";
 import { useDisclosure } from "@mantine/hooks";
 import path from "node:path/win32";
@@ -27,6 +27,10 @@ export default function Header() {
   const [opened, { open, close }] = useDisclosure(false);
 
   const { cartProducts } = useCartStore();
+
+  useEffect(() => {
+    console.log(searchValue);
+  }, [searchValue]);
 
   const tot = useMemo(() => {
     return cartProducts.reduce((sum, product) => sum + product.price, 0);
