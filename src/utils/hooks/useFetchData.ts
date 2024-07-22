@@ -23,6 +23,7 @@ export const useFetchData = <T>(url: string, delay: number, schema: ZodSchema<T[
       const json = await response.json();
 
       const validatedData = schema.parse(json.books);
+
       setData(validatedData);
 
     } catch (error: any) {

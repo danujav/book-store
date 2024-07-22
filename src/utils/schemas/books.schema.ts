@@ -32,9 +32,12 @@ export const BookSchema = z.object({
         })
         .int(),
     price: z.
-        string({
+        number({
             required_error: "Price is required",
-            invalid_type_error: "Price must be a string",
+            invalid_type_error: "Price must be a number",
+        })
+        .positive({
+            message: "Price should be greate than zero"
         }),
     image: z
         .string()

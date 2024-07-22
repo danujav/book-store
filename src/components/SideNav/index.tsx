@@ -1,4 +1,4 @@
-import Book from "@/utils/types/Book";
+import { Books } from "@/utils/schemas/books.schema";
 import {
   Stack,
   Button,
@@ -17,7 +17,7 @@ import {
 } from "@mantine/core";
 import { useEffect, useState } from "react";
 
-export default function SideNav({ data }: { data: Book[] }) {
+export default function SideNav({ data }: { data: Books }) {
   return (
     <Stack
       h="auto"
@@ -63,7 +63,7 @@ export default function SideNav({ data }: { data: Book[] }) {
   );
 }
 
-function CheckBox({ data }: { data: Book[] }) {
+function CheckBox({ data }: { data: Books }) {
   const [value, setValue] = useState<string[]>([]);
 
   const uniqueCategories = Array.from(

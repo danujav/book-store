@@ -4,12 +4,7 @@ import { useCartStore } from "@/store/userCartStore";
 import { useEffect } from "react";
 
 export default function Cart() {
-  const { cartProductIds, addToCart, removeFromCart, clearAllItems } =
-    useCartStore();
+  const { cartProducts } = useCartStore();
 
-  useEffect(() => {
-    console.log("product ids: " + cartProductIds);
-  }, []);
-
-  return <h1>Cart Item Count: {cartProductIds.length}</h1>;
+  return <h1>Cart Item Count: {cartProducts.length}</h1>;
 }

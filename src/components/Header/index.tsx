@@ -1,6 +1,17 @@
 "use client";
 
-import { rem, Badge, TextInput, Button, Group, Text } from "@mantine/core";
+import {
+  rem,
+  Badge,
+  TextInput,
+  Button,
+  Group,
+  Text,
+  Grid,
+  Card as MagniteCard,
+  Image,
+  Divider,
+} from "@mantine/core";
 import { IconShoppingCart, IconHome2, IconSearch } from "@tabler/icons-react";
 import { NavLink, Drawer } from "@mantine/core";
 import Link from "next/link";
@@ -15,6 +26,10 @@ export default function Header() {
   const [opened, { open, close }] = useDisclosure(false);
 
   const { cartProducts } = useCartStore();
+
+  const tot = useMemo(() => {
+    return cartProducts.reduce((sum, product) => sum + product.price, 0);
+  }, [cartProducts]);
 
   return (
     <header className="bg-white text-gray-900 p-4 shadow-md">
@@ -53,6 +68,34 @@ export default function Header() {
             position="right"
           >
             <DrawerContent />
+            <Grid>
+              <Grid.Col span={8}>
+                <Text size="xl" fw={500}>
+                  Cart Total:
+                </Text>
+              </Grid.Col>
+              <Grid.Col span={4}>
+                <Group justify="flex-end">
+                  <Text size="xl" fw={500}>
+                    $ {tot.toFixed(2)}
+                  </Text>
+                </Group>
+              </Grid.Col>
+            </Grid>
+            <Grid>
+              <Grid.Col span={12}>
+                <Button fullWidth variant="filled" size="md" radius="xs">
+                  <NavLink
+                    component={Link}
+                    href="/cart"
+                    label="View Your Cart"
+                    // leftSection={<IconHome2 size="1rem" stroke={1.5} />}
+                    // variant="filled"
+                    // active={pathname == "/"}
+                  />
+                </Button>
+              </Grid.Col>
+            </Grid>
           </Drawer>
           {/* <NavLink
             component={Link}
@@ -111,17 +154,44 @@ export default function Header() {
 function DrawerContent() {
   const { cartProducts } = useCartStore();
 
-  const tot = useMemo(() => {
-    return cartProducts.reduce((sum, product) => sum + 10, 0);
+  const runningTotals = useMemo(() => {
+    let total = 0;
+    return cartProducts.map((product) => {
+      total += product.price;
+      return total;
+    });
   }, [cartProducts]);
 
   return (
     <>
       {cartProducts.map((product, index) => (
-        <Group justify="space-between" key={index}>
-          <Button variant="default">First</Button>
-          <Text fw={350}>{tot}</Text>
-        </Group>
+        <>
+          <Grid>
+            <Grid.Col span={8}>
+              <Grid>
+                <Grid.Col span={4}>
+                  <Image
+                    src={product.image}
+                    height={160}
+                    alt={"No image preview"}
+                  />
+                </Grid.Col>
+                <Grid.Col span={8}>
+                  <Text fw={450}>{product.title}</Text>
+                  <Text size="sm" fw={400}>
+                    $ {product.price}
+                  </Text>
+                </Grid.Col>
+              </Grid>
+            </Grid.Col>
+            <Grid.Col span={4}>
+              <Group justify="flex-end">
+                <Text fw={400}>$ {runningTotals[index].toFixed(2)}</Text>
+              </Group>
+            </Grid.Col>
+          </Grid>
+          <Divider my="md" />
+        </>
       ))}
     </>
   );
