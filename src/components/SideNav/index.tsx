@@ -1,19 +1,15 @@
+import { useCategoryStore } from "@/store/useCategoryStore";
 import { Books } from "@/utils/schemas/books.schema";
 import {
   Stack,
-  Button,
   Group,
   Text,
-  Flex,
-  Center,
-  Box,
   Grid,
   Checkbox,
   SimpleGrid,
   ScrollArea,
   Divider,
   RangeSlider as MantineRangeSlider,
-  NumberFormatter,
 } from "@mantine/core";
 import { useEffect, useState } from "react";
 
@@ -65,10 +61,17 @@ export default function SideNav({ data }: { data: Books }) {
 
 function CheckBox({ data }: { data: Books }) {
   const [value, setValue] = useState<string[]>([]);
+  const { addCategories } = useCategoryStore();
 
   const uniqueCategories = Array.from(
     new Set(data.map((book) => book.category))
   );
+
+  useEffect(() => {
+    const addCategoriesToStore = () => addCategories(value);
+
+    addCategoriesToStore();
+  }, [value]);
 
   return (
     <Checkbox.Group value={value} onChange={setValue} withAsterisk>

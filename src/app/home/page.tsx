@@ -16,6 +16,7 @@ import Combobox from "@/components/common/Combobox";
 import SideNav from "@/components/SideNav";
 import { Book, BooksSchema } from "@/utils/schemas/books.schema";
 import { useSearchStore } from "@/store/useSearchStore";
+import { useCategoryStore } from "@/store/useCategoryStore";
 
 export default function Home() {
   const { data, loading, error } = useFetchData(
@@ -24,6 +25,7 @@ export default function Home() {
     BooksSchema
   );
   const { searchValue } = useSearchStore();
+  const { categories } = useCategoryStore();
 
   const [value, setValue] = useState<string | null>("");
   const [filteredData, setFilteredData] = useState<Book[]>([]);
@@ -35,7 +37,7 @@ export default function Home() {
   ));
 
   useEffect(() => {
-    const filteredData = data
+    let filteredData = data
       .filter(
         (book: Book) =>
           book.author.toLowerCase().includes(searchValue.toLowerCase()) ||
@@ -50,8 +52,15 @@ export default function Home() {
           return 0;
         }
       });
+
+    if (categories && categories.length > 0) {
+      filteredData = filteredData.filter((book) =>
+        categories.includes(book.category)
+      );
+    }
+
     setFilteredData(filteredData);
-  }, [data, searchValue, value]);
+  }, [data, searchValue, value, categories]);
 
   const handleChange = (value: string | null) => {
     setValue(value);
