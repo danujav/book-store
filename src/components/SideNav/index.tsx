@@ -20,13 +20,14 @@ export default function SideNav({ data }: { data: Books }) {
       bg="var(--mantine-color-body)"
       align="stretch"
       justify="center"
-      gap="xl"
+      gap="xs"
     >
-      <Group className="pl-3">
+      <Group className="pl-3 mt-6">
         <Text fw={500}>Filter By: </Text>
       </Group>
 
-      <Divider my="sm" />
+      {/* <Divider size={10} my="xl" label="Filter By: " labelPosition="left" /> */}
+      {/* <Text fw={500}>Filter By: </Text> */}
 
       <Grid>
         <Grid.Col span={12}>

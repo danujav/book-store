@@ -73,7 +73,7 @@ export default function Home() {
           <Grid.Col span={3}>
             <SideNav data={data} />
           </Grid.Col>
-          <Grid.Col span={9}>
+          <Grid.Col className="mt-3" span={9}>
             <Group justify="flex-end" className="mb-5">
               <Text fw={500}>Sort By: </Text>
               <Combobox
