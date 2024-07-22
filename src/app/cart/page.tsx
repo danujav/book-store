@@ -19,18 +19,47 @@ export default function Cart() {
 
 function TableCart() {
   const { cartProducts, removeFromCart } = useCartStore();
+  const [counts, setCounts] = useState(cartProducts.map(() => 1));
+
+  const handleIncrement = (index: number) => {
+    setCounts((prevCounts) => {
+      const newCounts = [...prevCounts];
+      newCounts[index] += 1;
+      return newCounts;
+    });
+  };
+
+  const handleDecrement = (index: number) => {
+    setCounts((prevCounts) => {
+      const newCounts = [...prevCounts];
+      if (newCounts[index] > 1) {
+        newCounts[index] -= 1;
+      }
+      return newCounts;
+    });
+  };
 
   const head = ["Item", "Price", "Quantity", "Sub Total"];
 
   const body = cartProducts.map((product, index) => [
     <ImageColumn product={product} index={index} />,
     <PriceColumn product={product} />,
-    <QuantityColumn />,
-    <SubTotalColumn index={index} />,
+    <QuantityColumn
+      count={counts[index]}
+      onIncrement={() => handleIncrement(index)}
+      onDecrement={() => handleDecrement(index)}
+    />,
+    <SubTotalColumn product={product} count={counts[index]} />,
     <CloseButton onClick={() => removeFromCart(product.id)} />,
   ]);
 
-  return <Table caption="Items in your cart" head={head} body={body} />;
+  return (
+    <Table
+      caption={`${cartProducts.length} Items in your cart`}
+      head={head}
+      body={body}
+    />
+  );
 }
 
 function ImageColumn({ product, index }: { product: Book; index: number }) {
@@ -59,36 +88,24 @@ function PriceColumn({ product }: { product: Book }) {
   return <Text fw={500}>{product.price.toFixed(2)}</Text>;
 }
 
-function QuantityColumn() {
-  const [count, setCount] = useState(1);
-
-  const handleIncrement = () => {
-    setCount((prevCount) => prevCount + 1);
-  };
-
-  const handleDecrement = () => {
-    setCount((prevCount) => (prevCount > 1 ? prevCount - 1 : 1));
-  };
-
+function QuantityColumn({
+  count,
+  onIncrement,
+  onDecrement,
+}: {
+  count: number;
+  onIncrement: () => void;
+  onDecrement: () => void;
+}) {
   return (
     <Group>
-      <Button onClick={handleDecrement}>-</Button>
+      <Button onClick={onDecrement}>-</Button>
       <Text>{count}</Text>
-      <Button onClick={handleIncrement}>+</Button>
+      <Button onClick={onIncrement}>+</Button>
     </Group>
   );
 }
 
-function SubTotalColumn({ index }: { index: number }) {
-  const { cartProducts } = useCartStore();
-
-  const subTotal = useMemo(() => {
-    let total = 0;
-    return cartProducts.map((product) => {
-      total += product.price;
-      return total;
-    });
-  }, [cartProducts]);
-
-  return <Text fw={500}>{subTotal[index].toFixed(2)}</Text>;
+function SubTotalColumn({ product, count }: { product: Book; count: number }) {
+  return <Text fw={500}>{(product.price * count).toFixed(2)}</Text>;
 }
