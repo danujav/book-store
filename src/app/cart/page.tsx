@@ -3,6 +3,7 @@
 import { Button, Grid, Text, Group, TextInput } from "@mantine/core";
 import { Metadata } from "next";
 import TableCart from "./TableCart";
+import Link from "next/link";
 
 export default function Cart() {
   return (
@@ -66,6 +67,8 @@ function ProceedToCheck() {
             size="md"
             radius="xs"
             onClick={close}
+            component={Link}
+            href="checkout"
           >
             PROCEED TO CHECKOUT
           </Button>
