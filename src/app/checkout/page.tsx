@@ -1,17 +1,19 @@
 "use client";
-import { Grid } from "@mantine/core";
+
 import BillingForm from "./BillingForm";
 import OrderSummary from "./OrderSummary";
 
 export default function Checkout() {
   return (
-    <Grid className="m-10">
-      <Grid.Col span={6}>
-        <BillingForm />
-      </Grid.Col>
-      <Grid.Col span={4}>
-        <OrderSummary />
-      </Grid.Col>
-    </Grid>
+    <div className="m-10">
+      <div className="flex flex-col md:flex-row gap-4">
+        <div className="flex-1">
+          <BillingForm />
+        </div>
+        <div className="flex-1">
+          <OrderSummary />
+        </div>
+      </div>
+    </div>
   );
 }

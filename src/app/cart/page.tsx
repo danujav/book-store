@@ -56,7 +56,7 @@ function ProceedToCheck() {
             <Grid.Col span={6}>
               <Group justify="flex-end">
                 <Text size="md" fw={500}>
-                  $ 456.15
+                  $ 91.15
                 </Text>
               </Group>
             </Grid.Col>
