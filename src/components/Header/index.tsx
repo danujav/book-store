@@ -116,10 +116,10 @@ export default function Header() {
           />
         </div>
 
-        {/* <div className="md:hidden">
-          <button
+        <div className="md:hidden">
+          <Button
             className="text-teal-700 hover:text-teal-500 focus:outline-none"
-            onClick={() => console.log('Toggle mobile menu')}
+            onClick={() => console.log("Toggle mobile menu")}
           >
             <svg
               className="w-6 h-6"
@@ -135,8 +135,8 @@ export default function Header() {
                 d="M4 6h16M4 12h16M4 18h16"
               ></path>
             </svg>
-          </button>
-        </div> */}
+          </Button>
+        </div>
       </div>
     </header>
   );

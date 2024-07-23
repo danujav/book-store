@@ -64,8 +64,6 @@ export default function Home() {
       );
     }
 
-    // filteredData = filteredData.;
-
     setFilteredData(filteredData);
   }, [data, searchValue, value, categories, startingPrice, endingPrice]);
 
