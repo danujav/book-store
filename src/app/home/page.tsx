@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  Grid,
-  Group,
-  Pagination,
-  SimpleGrid,
-  Skeleton,
-  Text,
-} from "@mantine/core";
+import { Grid, Group, Pagination, Skeleton, Text } from "@mantine/core";
 import Card from "@/components/common/Card";
 import { useFetchData } from "@/utils/hooks/useFetchData";
 import { useEffect, useState } from "react";

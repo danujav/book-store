@@ -1,7 +1,7 @@
 "use client";
 
 import { useCartStore } from "@/store/userCartStore";
-import { Button, Grid, Group, Image, Text } from "@mantine/core";
+import { Grid, Image, Text } from "@mantine/core";
 
 export default function OrderSummary() {
   const { cartProducts } = useCartStore();
@@ -33,11 +33,6 @@ export default function OrderSummary() {
             </Grid>
           </Grid.Col>
         ))}
-        {/* <Grid.Col span={12}>
-          <Button fullWidth variant="filled" size="md" radius="xs">
-            FINALIZE PAYMENT
-          </Button>
-        </Grid.Col> */}
       </Grid>
     </div>
   );

@@ -1,7 +1,7 @@
 "use client";
+
 import { useCartStore } from "@/store/userCartStore";
 import { Book } from "@/utils/schemas/books.schema";
-// import Book from "@/utils/types/Book";
 import {
   Card as MagniteCard,
   Image,

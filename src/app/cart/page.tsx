@@ -1,7 +1,6 @@
 "use client";
 
 import { Button, Grid, Text, Group, TextInput } from "@mantine/core";
-import { Metadata } from "next";
 import TableCart from "./TableCart";
 import Link from "next/link";
 
