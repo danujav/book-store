@@ -58,7 +58,7 @@ export default function Header() {
               </Badge>
             }
             onClick={open}
-            disabled={pathname == "/cart"}
+            disabled={pathname == "/cart" || pathname == "/checkout"}
           >
             Cart
           </Button>
