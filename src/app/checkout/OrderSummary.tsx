@@ -33,11 +33,11 @@ export default function OrderSummary() {
             </Grid>
           </Grid.Col>
         ))}
-        <Grid.Col span={12}>
+        {/* <Grid.Col span={12}>
           <Button fullWidth variant="filled" size="md" radius="xs">
             FINALIZE PAYMENT
           </Button>
-        </Grid.Col>
+        </Grid.Col> */}
       </Grid>
     </div>
   );

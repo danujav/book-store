@@ -11,6 +11,7 @@ import {
   Card as MagniteCard,
   Image,
   Divider,
+  Burger,
 } from "@mantine/core";
 import { IconShoppingCart, IconHome2, IconSearch } from "@tabler/icons-react";
 import { NavLink, Drawer } from "@mantine/core";
@@ -25,6 +26,7 @@ import { useSearchStore } from "@/store/useSearchStore";
 export default function Header() {
   const pathname = usePathname();
   const [opened, { open, close }] = useDisclosure(false);
+  const [burgerOpened, { toggle }] = useDisclosure();
 
   const { cartProducts } = useCartStore();
   const { searchValue, updateSearchValue } = useSearchStore();
@@ -48,7 +50,7 @@ export default function Header() {
             </Button>
           </Link>
         </Grid.Col>
-        <Grid.Col span={8}>
+        <Grid.Col className="" span={8}>
           <Group justify="flex-end">
             <TextInput
               leftSectionPointerEvents="none"
@@ -114,6 +116,15 @@ export default function Header() {
             </Drawer>
           </Group>
         </Grid.Col>
+        {/* <Grid.Col className="block md:hidden" span={8}>
+          <Group justify="flex-end">
+            <Burger
+              opened={burgerOpened}
+              onClick={toggle}
+              aria-label="Toggle navigation"
+            />
+          </Group>
+        </Grid.Col> */}
       </Grid>
     </header>
 

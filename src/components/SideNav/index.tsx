@@ -74,7 +74,7 @@ function CheckBox({ data }: { data: Books }) {
 
   return (
     <Checkbox.Group value={value} onChange={setValue} withAsterisk>
-      <SimpleGrid cols={2}>
+      <SimpleGrid cols={2} className="md:grid-cols-2 grid-cols-1">
         {uniqueCategories.map((category, index) => (
           <Checkbox key={index} value={category} label={category} />
         ))}

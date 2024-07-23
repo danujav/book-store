@@ -74,11 +74,11 @@ export default function Home() {
   return (
     <div className="m-11">
       <Skeleton visible={loading} height={450}>
-        <Grid>
-          <Grid.Col span={3}>
+        <Grid className="md:flex-row flex-col">
+          <Grid.Col className="md:w-1/4 w-full" span={3}>
             <SideNav data={data} />
           </Grid.Col>
-          <Grid.Col className="mt-3" span={9}>
+          <Grid.Col className="md:w-3/4 w-full mt-3 md:mt-0" span={9}>
             <Group justify="flex-end" className="mb-5">
               <Text fw={500}>Sort By: </Text>
               <Combobox
@@ -88,9 +88,9 @@ export default function Home() {
                 onChange={handleChange}
               />
             </Group>
-            <SimpleGrid cols={4} spacing="xs">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               {items}
-            </SimpleGrid>
+            </div>
             <Group justify="flex-end">
               <Pagination
                 total={Math.ceil(filteredData.length / 8)}

@@ -7,14 +7,16 @@ import Link from "next/link";
 
 export default function Cart() {
   return (
-    <Grid className="m-10">
-      <Grid.Col span={8}>
-        <TableCart />
-      </Grid.Col>
-      <Grid.Col span={4}>
-        <ProceedToCheck />
-      </Grid.Col>
-    </Grid>
+    <div className="m-10">
+      <div className="flex flex-col md:flex-row gap-4">
+        <div className="flex-1">
+          <TableCart />
+        </div>
+        <div className="flex-1">
+          <ProceedToCheck />
+        </div>
+      </div>
+    </div>
   );
 }
 
