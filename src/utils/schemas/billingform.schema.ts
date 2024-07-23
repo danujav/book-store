@@ -17,17 +17,23 @@ export const BillingFormSchema = z.object({
         .string()
         .email(),
     telephone: z
-        .string(),
+        .string({
+            required_error: "Telephone is required",
+            invalid_type_error: "Telephone must be a string",
+        })
+        .min(10, { message: "Must be 10 or more character long for telephone" }),
     country: z
         .string(),
     city: z
         .string(),
     streetaddress: z
-        .string(),
+        .string({
+            required_error: "Street address is required",
+            invalid_type_error: "Street address must be a string",
+        })
+        .min(10, { message: "Must be 10 or more character long for streed address" }),
     postalcode: z
-        .number()
-        .int()
-        .positive(),
+        .string(),
     othernotes: z
         .string()
 });
